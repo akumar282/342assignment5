@@ -17,7 +17,7 @@ BSTree::~BSTree(){
     Empty(root);
 }
 
-bool BSTree::Insert(Account *acc){
+bool BSTree::Insert(Account *&acc){
     
     return InsertRecHelp(root, acc);
 }
@@ -42,7 +42,7 @@ Account* BSTree::recRet(Node* pRoot, int AccNum) const {
             }
         }
 
-bool BSTree::InsertRecHelp(Node* curr, Account* acc){
+bool BSTree::InsertRecHelp(Node* curr, Account*& acc){
     if(isEmpty()){
         root = new Node;
         root->pAcct = acc;
@@ -80,10 +80,11 @@ bool BSTree::isEmpty() const{
     return root == nullptr;
 }
 
-void BSTree::Empty(Node *node){
-    if(node != NULL){
+void BSTree::Empty(Node *&node){
+    if(node != NULL) {
         Empty(node->left);
         Empty(node->right);
+        delete node->pAcct;
         delete node;
     }
 }
